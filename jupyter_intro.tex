@@ -1,0 +1,117 @@
+\documentclass{amsart}
+
+\title{Getting started with the UCM JupyterHub}
+\date{\today}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref, graphicx}
+
+\begin{document}
+\maketitle
+
+This document contains an introduction to using UC Merced's JupyterHub, providing access to students, troubleshooting some of the most common issues, and additional resources to get started teaching a course with JupyterHub. You can experiment with a sample implementation \href{https://ucmerced.2i2c.cloud/hub/user-redirect/git-pull?repo=https\%3A\%2F\%2Fgithub.com\%2Frosemariebongers\%2FUCM-Jupyter\&urlpath=tree\%2FUCM-Jupyter\%2F\&branch=main}{here}. If you have any questions about these resources, please reach out to Rosemarie Bongers (Applied Math) or Sarvani Chadalapaka (CIRT).
+
+
+\subsection*{What is JupyterHub?}
+
+The UC Merced JupyterHub allows you to host and distribute Jupyter notebooks to your students. These notebooks integrate text or markdown blocks with code blocks so that you can provide templates and code blocks to your classes. Students can then freely modify these templates to add their own text, code, and answers; this can be used for in-class coding demonstrations, computational explorations, or homework exercises. Students can sumbit notebooks to you either by downloading the modified notebook or exporting to a pdf. Some example notebooks can be found in the same folder as this document.
+
+Once the notebook has been distributed to students, it can be used entirely within a web browser. Students can execute or step through code blocks using the notebook interfact. You can also execute any block by putting a cursor in it and pressing Ctrl-Enter or Cmd-Enter. Code blocks can be in many different languages including Python and R.
+
+\subsection*{What do Jupyter notebooks look like?}
+See the reference notebooks \href{https://ucmerced.2i2c.cloud/hub/user-redirect/git-pull?repo=https\%3A\%2F\%2Fgithub.com\%2Frosemariebongers\%2FUCM-Jupyter\&urlpath=tree\%2FUCM-Jupyter\%2F\&branch=main}{here}:
+\begin{itemize}
+\item A sample homework 0 to get students used to using the notebooks.
+\item A sample homework problem from Math 032 involving simulation.
+\item A sample in-class demonstration from Math 032 involving graphing.
+\end{itemize}
+
+\subsection*{How do I set up JupyterHub for my class?}
+
+Once JupyterHub is set up, then it can be accessed directly via a link that you disseminate to students; from the student end, it is as simple as clicking and logging in. The following setup relies on having a linked GitHub repository; this is where you'll add or modify notebooks, and each time the student logs in to JupyterHub it will sync and pull in your latest content. The actual setup is fairly short:
+
+\begin{itemize}
+\item Create a GitHub repository; this is where you'll host the actual notebooks to distribute. (If you have not done this, you'll need to make a GitHub account). Make sure that the visibility is set to \emph{public}.
+
+\item Use nbgitpuller to generate a direct link to JupyterHub.
+
+\item Disseminate the link to students, e.g. by posting it on Canvas.
+\end{itemize}
+More detailed instructions are at the end of this document.
+
+\subsection*{What frequent issues do you run into?}
+\begin{itemize}
+\item Authentication issues with the campus JupyterHub. Sometimes these are simple (i.e. the student did not choose to log in with their UCM credentials and chose a different option), and sometimes they are due to an outage. In the case of an outage, it is helpful to have an alternative hosting space. One solution is to post the notebooks on Canvas (in .ipynb format), in which case they can download the notebooks and run them directly on Jupyter.org.
+
+\item Students lose their work or cannot recover the original version of the notebook. There are savepoints that students can revert to within Jupyter, but it is again helpful to have an original, static version that the students can refer to (i.e. posting the notebooks on Canvas).
+
+\item Student inexperience in coding. This is the hardest one to work with, but well-scaffolded notebooks can help.
+\end{itemize}
+
+\section*{Detailed setup instructions}
+
+\textbf{Step 0}: This PDF is interactive with a number of hyperlinks, although they may be disabled depending on your pdf viewer or if you are using it directly on GitHub. You can either download the PDF or see the \textbf{appendix} at the end of the document for a list of all the links.
+
+\vspace{.5in}
+
+\textbf{Step 1}: Create a new GitHub repository after logging into your account at \href{https://www.github.com}{GitHub}. This repository's name is UCM-Jupyter:
+\begin{center}
+\includegraphics[scale=.3]{repo_create.png}
+\end{center}
+After creation, it only contains one file, README.md. This repository is publically accessible \href{https://github.com/rosemariebongers/UCM-Jupyter}{here}:
+\begin{center}
+\includegraphics[scale=.4]{post_repo.png}
+\end{center}
+Although this is beyond the scope of this guide, you can also use GitHub through the command line directly. See \href{https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens}{here} for generating a personal access token and \href{https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository}{here} for how to push an update to a remote repository.
+
+\newpage
+
+\textbf{Step 2}: Use the \href{https://nbgitpuller.readthedocs.io/en/latest/link.html}{nbgitpuller link generator} to generate a link that will sync with your lates GitHub repository updates. You'll need the URLs for both the campus JupyterHub (https://ucmerced.2i2c.cloud, accessible \href{https://ucmerced.2i2c.cloud}{here}) and your personal GitHub repository. Here's an example of the link creation:
+\begin{center}
+\includegraphics[scale=.4]{nbg.png}
+\end{center}
+The generated link is accessible \href{https://ucmerced.2i2c.cloud/hub/user-redirect/git-pull?repo=https\%3A\%2F\%2Fgithub.com\%2Frosemariebongers\%2FUCM-Jupyter\&urlpath=tree\%2FUCM-Jupyter\%2F\&branch=main}{here}.
+
+\newpage
+
+\textbf{Step 3}: Disseminate the link that you just generated. The first time your students click it, they will be sent to an authentication page:
+\begin{center}
+\includegraphics[scale=.4]{login.png}
+\end{center}
+After you enter your UCM credentials, you may run into a prompt to select a kernel; choose whatever is appropriate for your applications (in this case, we're using Python). After a short sync, you should be able to see all of your files within Jupyter:
+\begin{center}
+\includegraphics[scale=.3]{jh_blank.png}
+\end{center}
+If you had any notebooks already, they would be accessible here. To get started writing a new one, click "New":
+\begin{center}
+\includegraphics[scale=.3]{new_nb.png}
+\end{center}
+Once you've done this, happy coding!
+\begin{center}
+\includegraphics[scale=.4]{happy.png}
+\end{center}
+
+\newpage
+
+\section*{Appendix: Links and Resources}
+
+\textbf{Links used in this setup document}:
+\begin{itemize}
+\item GitHub: https://github.com
+\item UCM GitHub repository: https://github.com/rosemariebongers/UCM-Jupyter
+\item Generating a GitHub personal access token: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+\item Pushing a commit to a remote repository: https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository
+\item Link generator (nbgitpuller): https://nbgitpuller.readthedocs.io/en/latest/link.html
+\item Default UCM JupyterHub landing page: https://ucmerced.2i2c.cloud/
+\item JupyterHub server implementing all the sample notebooks: https://bit.ly/4bAQpc1
+\end{itemize}
+
+\vspace{.5in}
+
+\textbf{Resources and contact people}:
+\begin{itemize}
+\item UC Merced Cyberinfrastructure and Research Technologies: \href{https://it.ucmerced.edu/CIRT}{https://it.ucmerced.edu/CIRT}
+\item Rosemarie Bongers (Applied Mathematics): rosemariebongers@ucmerced.edu
+\item Sarvani Chadalapaka (CIRT): schadalapaka@ucmerced.edu
+\end{itemize}
+
+\end{document}
